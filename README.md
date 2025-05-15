@@ -163,3 +163,7 @@ As you adapt this template for your specific project, consider the following cus
 
 - **[ ] Clean Up:**
   - [ ] Remove any example code or components from the template that are not needed for your project (e.g., the default `App.tsx` content).
+
+## License
+
+This project is licensed under the MIT License
