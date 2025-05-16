@@ -1,169 +1,158 @@
 # shadcn/ui Vite Monorepo Template
 
-This template provides a starting point for creating a monorepo with [shadcn/ui](https://ui.shadcn.com/), using Vite.js for the web application. It's inspired by the [official shadcn/ui monorepo documentation](https://ui.shadcn.com/docs/monorepo) but adapted for a Vite + React frontend environment.
+This template exists because the [official shadcn/ui monorepo](https://ui.shadcn.com/docs/monorepo) is built around a **Next.js** setup. While powerful, Next.js is primarily server-rendered, and sometimes you just want a **lightweight, client-only solution**—especially for static or cost-sensitive apps.
 
-## Features
+This template offers a **Vite + React + shadcn/ui** monorepo alternative. It lets you:
 
-- **Monorepo Setup**: Uses pnpm workspaces and Turborepo for efficient management of multiple packages.
-- **Web Application (`apps/web`)**: A Vite-powered React application with TypeScript.
-  - Configured with Tailwind CSS.
-  - Uses shadcn/ui components from the shared `ui` package.
-- **Shared UI Package (`packages/ui`)**: Contains shadcn/ui components, styles, and utilities shared across the monorepo.
-- **Shared Configurations**:
-  - `packages/eslint-config`: Centralized ESLint configuration.
-  - `packages/typescript-config`: Centralized TypeScript configuration.
-- **Vite Integration**: The `web` app uses Vite for fast development and optimized builds.
+- Use **shadcn/ui** component architecture and styling conventions.
+- Stick with **client-side rendering** (no SSR or backend infra).
+- **Save costs** by deploying to static hosting providers (e.g., Vercel static, Netlify, Cloudflare Pages).
+- Enjoy faster local dev and simpler deployments.
 
-## Getting Started
+## 🗂 Folder Structure
+
+```
+├── apps/
+│   └── web/                # Vite + React app
+│       ├── public/
+│       ├── src/
+│       ├── components.json # shadcn/ui config
+│       └── vite.config.ts
+├── packages/
+│   ├── ui/                 # Shared shadcn/ui components
+│   │   ├── components/     # UI components
+│   │   ├── lib/            # Utilities (e.g., cn)
+│   │   ├── styles/         # Global styles (globals.css)
+│   │   └── components.json
+│   ├── eslint-config/      # Shared ESLint config
+│   └── typescript-config/  # Shared TypeScript config
+├── pnpm-workspace.yaml     # Monorepo workspace config
+├── turbo.json              # Turborepo pipeline config
+└── package.json            # Root config
+```
+
+## 🚀 Features
+
+- **Monorepo**: Managed with pnpm workspaces and Turborepo.
+- **Web App** (`apps/web`): Vite + React + TypeScript, styled with Tailwind CSS.
+- **UI Package** (`packages/ui`): Shared components, styles, and utils.
+- **Centralized Configs**: Shared ESLint and TypeScript setups.
+- **shadcn/ui Integration**: Easily share and reuse components across the monorepo.
+
+## ⚙️ Getting Started
 
 ### Prerequisites
 
-- Node.js (version specified in `package.json`'s `engines` field, e.g., `>=20`)
-- pnpm (version specified in `package.json`'s `packageManager` field, e.g., `pnpm@10.4.1`)
+- Node.js (`>=20`)
+- pnpm (version defined in `packageManager` field)
 
-### Installation
-
-1.  Clone this repository or use it as a template for your new project.
-2.  Install dependencies from the root of the monorepo:
-    ```bash
-    pnpm install
-    ```
-
-### Initialize shadcn/ui (for the project)
-
-If you are starting a new project based on this template's structure and shadcn/ui hasn't been initialized for the `web` app context yet, or if you need to reconfigure, you can run:
+### Install Dependencies
 
 ```bash
-pnpm dlx shadcn@latest init -c apps/web
+pnpm install
 ```
 
-This command will guide you through setting up `components.json` for the `apps/web` project, which should be configured to use `packages/ui` for components and styles. This template comes with a pre-configured [`apps/web/components.json`](apps/web/components.json).
+## 🧪 Development
 
-## Development
-
-To start the development server for the `web` application:
+Start the dev server:
 
 ```bash
 pnpm dev
 ```
 
-This command uses Turborepo to run the `dev` script defined in [`apps/web/package.json`](apps/web/package.json) (which is `vite`). The web application will typically be available at `http://localhost:5173`.
+Serves the `apps/web` app at `http://localhost:5173` via Vite.
 
-## Adding shadcn/ui Components
+## ➕ Adding shadcn/ui Components
 
-To add new shadcn/ui components:
+You can add components using either of the following methods:
 
-1.  Run the `add` command from the **root of the monorepo**:
-    ```bash
-    pnpm dlx shadcn@latest add <component-name> -c apps/web
-    ```
-    For example, to add the `button` component:
-    ```bash
-    pnpm dlx shadcn@latest add button -c apps/web
-    ```
-2.  This command uses the configuration in [`apps/web/components.json`](apps/web/components.json).
-3.  The component source code will be added to the `packages/ui/src/components` directory.
-4.  The necessary dependencies will be added to [`packages/ui/package.json`](packages/ui/package.json).
+### Option 1: From the Monorepo Root
 
-The `apps/web/components.json` is configured with aliases like `"ui": "@workspace/ui/components"` and `"utils": "@workspace/ui/lib/utils"`, ensuring components are placed in and resolved from the shared `packages/ui` directory.
-
-## Using Components in `apps/web`
-
-Import components into your React files within the `apps/web` application from the `@workspace/ui` package:
-
-```tsx
-// Example: apps/web/src/App.tsx
-import { Button } from "@workspace/ui/components/button"; // Or your specific alias
-
-function App() {
-  return (
-    <div>
-      <h1>My Vite + React App</h1>
-      <Button>Click Me</Button>
-    </div>
-  );
-}
-
-export default App;
+```bash
+pnpm dlx shadcn@latest add <component> -c apps/web
 ```
 
-## Building for Production
+Example:
 
-To build all packages in the monorepo for production:
+```bash
+pnpm dlx shadcn@latest add button -c apps/web
+```
+
+### Option 2: From Inside the App Directory (Follow [Official Guide](https://ui.shadcn.com/docs/monorepo))
+
+```bash
+cd apps/web
+npx shadcn@latest add <component>
+```
+
+Example:
+
+```bash
+cd apps/web
+npx shadcn@latest add button
+```
+
+This:
+
+- Uses `apps/web/components.json` for config.
+- Adds components to `packages/ui/src/components`.
+- Updates `packages/ui/package.json` with required deps.
+
+Aliases like `"ui"` and `"utils"` in `components.json` ensure shared usage via `@workspace/ui`.
+
+## 🧱 Using Components in `apps/web`
+
+```tsx
+import { Button } from "@workspace/ui/components/button";
+
+function App() {
+  return <Button>Click Me</Button>;
+}
+```
+
+## 📦 Build
+
+Build all packages:
 
 ```bash
 pnpm build
 ```
 
-This command uses Turborepo to execute the `build` script for each package, including building the `web` app using Vite.
+Runs `build` scripts via Turborepo, including Vite build for the web app.
 
-## Linting
+## ✅ Linting
 
-To lint all packages in the monorepo:
+Run lint across all packages:
 
 ```bash
 pnpm lint
 ```
 
-This uses Turborepo to run the `lint` script defined in the respective `package.json` files (e.g., [`apps/web/package.json`](apps/web/package.json), [`packages/ui/package.json`](packages/ui/package.json)).
+Uses the `lint` scripts in each package (e.g., `apps/web`, `packages/ui`).
 
-## Folder Structure Overview
+## 🛠 Customization Checklist
 
-```
-├── apps/
-│   └── web/                # Vite + React application
-│       ├── public/
-│       ├── src/
-│       ├── components.json # shadcn/ui config for the web app
-│       ├── package.json
-│       └── vite.config.ts
-├── packages/
-│   ├── ui/                 # Shared shadcn/ui components
-│   │   ├── src/
-│   │   │   ├── components/ # Actual shadcn/ui components
-│   │   │   ├── lib/        # Utilities (e.g., cn)
-│   │   │   └── styles/     # Global styles (globals.css)
-│   │   ├── components.json # shadcn/ui config for the ui package
-│   │   └── package.json
-│   ├── eslint-config/      # Shared ESLint configuration
-│   └── typescript-config/  # Shared TypeScript configuration
-├── .eslintrc.js
-├── package.json            # Root package.json
-├── pnpm-lock.yaml
-├── pnpm-workspace.yaml
-├── tsconfig.json
-└── turbo.json
-```
+- **Project Info**:
 
-## Project Customization Checklist
+  - [ ] Update `name` and `description` in all `package.json` files.
+  - [ ] Edit browser tab title (`apps/web/index.html`).
+  - [ ] Replace logos/favicons (`apps/web/public/`).
 
-As you adapt this template for your specific project, consider the following customization steps:
+- **Styling**:
 
-- **[ ] Project Naming & Identity:**
+  - [ ] Define brand colors (`packages/ui/tailwind.config.mjs`).
+  - [ ] Customize global styles (`globals.css`).
+  - [ ] Extend or adapt UI components.
 
-  - [ ] Update `name` and `description` in the root `package.json`.
-  - [ ] Update `name` in `apps/web/package.json` and `packages/ui/package.json`.
-  - [ ] Change the browser tab title in `apps/web/index.html`.
-  - [ ] Replace placeholder logos/favicons in `apps/web/public/`.
+- **Docs**:
 
-- **[ ] Branding & Styling:**
+  - [ ] Update this `README.md`.
+  - [ ] Add contributing guidelines (if needed).
+  - [ ] Document architecture or decisions.
 
-  - [ ] Define your project's color palette in `packages/ui/tailwind.config.mjs`.
-  - [ ] Customize fonts and base styles in `packages/ui/src/styles/globals.css`.
-  - [ ] Adapt or extend shadcn/ui components in `packages/ui/src/components` to match your brand.
+- **Cleanup**:
+  - [ ] Remove unused example code/components (e.g., `App.tsx`).
 
-- **[ ] Documentation (`README.md` and others):**
+## 📄 License
 
-  - [ ] **Update this `README.md`**:
-    - [ ] Reflect your project's specific purpose and features.
-    - [ ] Add or remove sections relevant to your project.
-    - [ ] Update setup instructions if you've made significant changes.
-    - [ ] Include information on how to contribute (if applicable).
-  - [ ] Add any necessary architectural decision records or further documentation.
-
-- **[ ] Clean Up:**
-  - [ ] Remove any example code or components from the template that are not needed for your project (e.g., the default `App.tsx` content).
-
-## License
-
-This project is licensed under the MIT License
+MIT
