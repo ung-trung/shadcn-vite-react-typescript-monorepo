@@ -1,4 +1,8 @@
-# shadcn/ui Vite Monorepo Template
+# 🎨 shadcn/ui Vite Monorepo Template
+
+<div align="center">
+  <img src="https://placehold.co/1200x400/1e293b/ffffff?text=shadcn/ui+Vite+Monorepo" alt="Project Banner" width="100%"/>
+</div>
 
 This template exists because the [official shadcn/ui monorepo](https://ui.shadcn.com/docs/monorepo) is built around a **Next.js** setup. While powerful, Next.js is primarily server-rendered, and sometimes you just want a **lightweight, client-only solution**—especially for static or cost-sensitive apps.
 
@@ -8,6 +12,27 @@ This template offers a **Vite + React + shadcn/ui** monorepo alternative. It let
 - Stick with **client-side rendering** (no SSR or backend infra).
 - **Save costs** by deploying to static hosting providers (e.g., Vercel static, Netlify, Cloudflare Pages).
 - Enjoy faster local dev and simpler deployments.
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js (`>=20`)
+- pnpm (version defined in `packageManager` field)
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/shadcn-vite-react-typescript-monorepo.git my-app
+
+# Navigate to the project directory
+cd my-app
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+```
 
 ## 🗂 Folder Structure
 
@@ -38,29 +63,6 @@ This template offers a **Vite + React + shadcn/ui** monorepo alternative. It let
 - **UI Package** (`packages/ui`): Shared components, styles, and utils.
 - **Centralized Configs**: Shared ESLint and TypeScript setups.
 - **shadcn/ui Integration**: Easily share and reuse components across the monorepo.
-
-## ⚙️ Getting Started
-
-### Prerequisites
-
-- Node.js (`>=20`)
-- pnpm (version defined in `packageManager` field)
-
-### Install Dependencies
-
-```bash
-pnpm install
-```
-
-## 🧪 Development
-
-Start the dev server:
-
-```bash
-pnpm dev
-```
-
-Serves the `apps/web` app at `http://localhost:5173` via Vite.
 
 ## ➕ Adding shadcn/ui Components
 
@@ -151,7 +153,14 @@ Uses the `lint` scripts in each package (e.g., `apps/web`, `packages/ui`).
   - [ ] Document architecture or decisions.
 
 - **Cleanup**:
+
   - [ ] Remove unused example code/components (e.g., `App.tsx`).
+
+  ## 📸 Screenshot
+
+<div align="center">
+  <img src="./screenshot.png" alt="Project Screenshot" width="80%"/>
+</div>
 
 ## 📄 License
 
